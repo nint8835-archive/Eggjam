@@ -1,12 +1,19 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using System.Diagnostics.CodeAnalysis;
+using Eggjam.Systems;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended.Entities;
 
 namespace Eggjam;
 
 public class EggjamGame : Game {
+    [SuppressMessage(
+        "ReSharper",
+        "NotAccessedField.Local",
+        Justification =
+            "A GraphicsDeviceManager must be initialized to not encounter a 'no graphics device service' error. Storing here to prevent it from being garbage collected."
+    )]
     private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
 
     public EggjamGame() {
         _graphics = new GraphicsDeviceManager(this);
@@ -14,8 +21,12 @@ public class EggjamGame : Game {
         IsMouseVisible = true;
     }
 
-    protected override void LoadContent() {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+    protected override void Initialize() {
+        var world = new WorldBuilder()
+            .AddSystem(new TestSystem(GraphicsDevice))
+            .Build();
+
+        Components.Add(world);
     }
 
     protected override void Update(GameTime gameTime) {
@@ -24,13 +35,5 @@ public class EggjamGame : Game {
             Exit();
 
         base.Update(gameTime);
-    }
-
-    protected override void Draw(GameTime gameTime) {
-        GraphicsDevice.Clear(Color.Aquamarine);
-
-        // TODO: Add your drawing code here
-
-        base.Draw(gameTime);
     }
 }
