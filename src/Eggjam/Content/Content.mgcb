@@ -10,6 +10,13 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:../../../../../.nuget/packages/monogame.aseprite/6.0.5/content/Monogame.Aseprite.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin Sprites.aseprite
+/importer:AsepriteFileContentImporter
+/processor:AsepriteFileContentProcessor
+/processorParam:PremultiplyAlpha=True
+/build:Sprites.aseprite
 

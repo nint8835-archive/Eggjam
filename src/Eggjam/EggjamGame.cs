@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using AsepriteDotNet.Aseprite;
 using Eggjam.Systems;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using MonoGame.Aseprite;
 using MonoGame.Extended.Entities;
 
 namespace Eggjam;
@@ -15,25 +16,23 @@ public class EggjamGame : Game {
     )]
     private GraphicsDeviceManager _graphics;
 
+    private TextureAtlas _sprites;
+
     public EggjamGame() {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
     }
 
-    protected override void Initialize() {
+    protected override void LoadContent() {
+        var asepriteFile = Content.Load<AsepriteFile>("Sprites");
+        _sprites = asepriteFile.CreateTextureAtlas(GraphicsDevice);
+
         var world = new WorldBuilder()
+            .AddSystem(new RenderSystem(GraphicsDevice, _sprites))
             .AddSystem(new TestSystem(GraphicsDevice))
             .Build();
 
         Components.Add(world);
-    }
-
-    protected override void Update(GameTime gameTime) {
-        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-            Keyboard.GetState().IsKeyDown(Keys.Escape))
-            Exit();
-
-        base.Update(gameTime);
     }
 }
