@@ -18,7 +18,7 @@ public class PlayerSystem : EntityProcessingSystem {
         base.Initialize(world);
 
         var playerEntity = world.CreateEntity();
-        playerEntity.Attach(new Transform2 { Position = new Vector2(100, 100) });
+        playerEntity.Attach(new Transform2 { Position = new Vector2(100, 100), Scale = new Vector2(100) });
         playerEntity.Attach(new Player());
         playerEntity.Attach(new Sprite(SpriteIdentifier.Egg));
     }

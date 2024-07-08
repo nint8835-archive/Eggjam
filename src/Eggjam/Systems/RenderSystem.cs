@@ -14,7 +14,7 @@ namespace Eggjam.Systems;
 public class RenderSystem : EntityDrawSystem {
     private readonly GraphicsDevice _graphicsDevice;
     private readonly SpriteBatch _spriteBatch;
-    private readonly Dictionary<SpriteIdentifier, MonoGame.Aseprite.Sprite> _spriteCache;
+    private readonly Dictionary<SpriteIdentifier, TextureRegion> _spriteCache;
     private readonly TextureAtlas _sprites;
     private ComponentMapper<Sprite> _spriteMapper;
     private ComponentMapper<Transform2> _transformMapper;
@@ -24,13 +24,13 @@ public class RenderSystem : EntityDrawSystem {
         _spriteBatch = new SpriteBatch(graphicsDevice);
         _sprites = sprites;
 
-        _spriteCache = new Dictionary<SpriteIdentifier, MonoGame.Aseprite.Sprite>();
+        _spriteCache = new Dictionary<SpriteIdentifier, TextureRegion>();
         PrepareSpriteCache();
     }
 
     private void PrepareSpriteCache() {
         foreach (var spriteIdentifier in Enum.GetValues<SpriteIdentifier>())
-            _spriteCache[spriteIdentifier] = _sprites.CreateSprite((int)spriteIdentifier);
+            _spriteCache[spriteIdentifier] = _sprites.CreateSprite((int)spriteIdentifier).TextureRegion;
     }
 
     public override void Initialize(IComponentMapperService mapperService) {
@@ -46,7 +46,8 @@ public class RenderSystem : EntityDrawSystem {
             var sprite = _spriteMapper.Get(entityId);
             var transform = _transformMapper.Get(entityId);
 
-            _spriteBatch.Draw(_spriteCache[sprite.Identifier], transform.Position);
+            _spriteBatch.Draw(_spriteCache[sprite.Identifier],
+                new Rectangle(transform.Position.ToPoint(), transform.Scale.ToPoint()), Color.White);
         }
 
         _spriteBatch.End();
