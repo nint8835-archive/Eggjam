@@ -24,8 +24,24 @@ public class InitializationSystem : ISystem {
             _graphicsDevice.Viewport.Height / 2f
         );
 
-        egg.Attach(new Transform2 { Position = eggPosition, Scale = eggSize });
+        egg.Attach(
+            new Transform2 {
+                Position = eggPosition,
+                Scale = eggSize
+            }
+        );
         egg.Attach(new Sprite(SpriteIdentifier.Egg));
+        egg.Attach(
+            new Clickable(
+                eggSize,
+                eggSize * 1.1f,
+                eggSize * 0.9f,
+                (_, _) => {
+                    State.Instance.Height++;
+                    Console.WriteLine(State.Instance.Height);
+                }
+            )
+        );
     }
 
     public void Dispose() {

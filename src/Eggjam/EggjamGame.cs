@@ -36,6 +36,7 @@ public class EggjamGame : Game {
 
         var world = new WorldBuilder()
             .AddSystem(new InitializationSystem(GraphicsDevice))
+            .AddSystem(new InputSystem())
             .AddSystem(new RenderSystem(GraphicsDevice, _sprites))
             .Build();
 
