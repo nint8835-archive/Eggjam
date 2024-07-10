@@ -46,8 +46,14 @@ public class RenderSystem : EntityDrawSystem {
             var sprite = _spriteMapper.Get(entityId);
             var transform = _transformMapper.Get(entityId);
 
-            _spriteBatch.Draw(_spriteCache[sprite.Identifier],
-                new Rectangle(transform.Position.ToPoint(), transform.Scale.ToPoint()), Color.White);
+            _spriteBatch.Draw(
+                _spriteCache[sprite.Identifier],
+                new Rectangle(
+                    (transform.Position - transform.Scale / 2).ToPoint(),
+                    transform.Scale.ToPoint()
+                ),
+                Color.White
+            );
         }
 
         _spriteBatch.End();

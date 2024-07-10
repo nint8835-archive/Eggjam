@@ -35,6 +35,7 @@ public class EggjamGame : Game {
         _sprites = asepriteFile.CreateTextureAtlas(GraphicsDevice);
 
         var world = new WorldBuilder()
+            .AddSystem(new InitializationSystem(GraphicsDevice))
             .AddSystem(new RenderSystem(GraphicsDevice, _sprites))
             .Build();
 
