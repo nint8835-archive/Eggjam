@@ -62,7 +62,7 @@ public class RenderSystem : EntityDrawSystem {
             );
         }
 
-        var raiseAmount = Length.FromCentimeters(State.Instance.Height);
+        var raiseAmount = UnitRendering.GetCurrentHeight();
         var renderAmount = UnitRendering.GetSmallestUnit(raiseAmount);
 
         _spriteBatch.DrawString(
