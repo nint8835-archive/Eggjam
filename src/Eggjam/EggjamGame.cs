@@ -4,6 +4,7 @@ using Eggjam.Systems;
 using Eggjam.Utils;
 using Microsoft.Xna.Framework;
 using MonoGame.Aseprite;
+using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Entities;
 
 namespace Eggjam;
@@ -34,10 +35,12 @@ public class EggjamGame : Game {
         var asepriteFile = Content.Load<AsepriteFile>("Sprites");
         _sprites = asepriteFile.CreateTextureAtlas(GraphicsDevice);
 
+        var font = Content.Load<BitmapFont>("IBM Plex Mono");
+
         var world = new WorldBuilder()
             .AddSystem(new InitializationSystem(GraphicsDevice))
             .AddSystem(new InputSystem())
-            .AddSystem(new RenderSystem(GraphicsDevice, _sprites))
+            .AddSystem(new RenderSystem(GraphicsDevice, _sprites, font))
             .Build();
 
         Components.Add(world);

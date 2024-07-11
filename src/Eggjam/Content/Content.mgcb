@@ -11,8 +11,26 @@
 #-------------------------------- References --------------------------------#
 
 /reference:../../../.nuget/packages/monogame.aseprite/6.0.5/content/Monogame.Aseprite.Content.Pipeline.dll
+/reference:../../../.nuget/packages/monogame.extended.content.pipeline/3.9.0-prerelease.7/tools/MonoGame.Extended.Content.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin IBM Plex Mono_0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:IBM Plex Mono_0.png
+
+#begin IBM Plex Mono.fnt
+/importer:BitmapFontImporter
+/processor:BitmapFontProcessor
+/build:IBM Plex Mono.fnt
 
 #begin Sprites.aseprite
 /importer:AsepriteFileContentImporter

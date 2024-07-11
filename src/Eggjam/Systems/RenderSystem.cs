@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
 using MonoGame.Extended;
+using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
 using Sprite = Eggjam.Components.Sprite;
@@ -12,6 +13,7 @@ using Sprite = Eggjam.Components.Sprite;
 namespace Eggjam.Systems;
 
 public class RenderSystem : EntityDrawSystem {
+    private readonly BitmapFont _font;
     private readonly GraphicsDevice _graphicsDevice;
     private readonly SpriteBatch _spriteBatch;
     private readonly Dictionary<SpriteIdentifier, TextureRegion> _spriteCache;
@@ -19,10 +21,12 @@ public class RenderSystem : EntityDrawSystem {
     private ComponentMapper<Sprite> _spriteMapper;
     private ComponentMapper<Transform2> _transformMapper;
 
-    public RenderSystem(GraphicsDevice graphicsDevice, TextureAtlas sprites) : base(Aspect.All(typeof(Sprite))) {
+    public RenderSystem(GraphicsDevice graphicsDevice, TextureAtlas sprites, BitmapFont font) :
+        base(Aspect.All(typeof(Sprite))) {
         _graphicsDevice = graphicsDevice;
         _spriteBatch = new SpriteBatch(graphicsDevice);
         _sprites = sprites;
+        _font = font;
 
         _spriteCache = new Dictionary<SpriteIdentifier, TextureRegion>();
         PrepareSpriteCache();
@@ -55,6 +59,17 @@ public class RenderSystem : EntityDrawSystem {
                 Color.White
             );
         }
+
+        _spriteBatch.DrawString(
+            _font,
+            "Aaaaa",
+            new Vector2(),
+            Color.White,
+            0f,
+            new Vector2(),
+            new Vector2(0.5f),
+            SpriteEffects.None, 
+            0f);
 
         _spriteBatch.End();
     }
