@@ -67,7 +67,7 @@ public class RenderSystem : EntityDrawSystem {
 
         _spriteBatch.DrawString(
             _font,
-            $"You have raised the egg {renderAmount.ToString()}!",
+            $"You have raised the egg {renderAmount.Value:N2} {Length.GetAbbreviation(renderAmount.Unit)}!",
             new Vector2(),
             Color.White,
             0f,
