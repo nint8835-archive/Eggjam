@@ -36,10 +36,7 @@ public class InitializationSystem : ISystem {
                 eggSize,
                 eggSize * 1.1f,
                 eggSize * 0.9f,
-                (_, _) => {
-                    State.Instance.Height++;
-                    Console.WriteLine(State.Instance.Height);
-                }
+                (_, _) => { State.Instance.Height++; }
             )
         );
     }

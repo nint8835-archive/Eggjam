@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Eggjam.Components;
+using Eggjam.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Aseprite;
@@ -8,6 +9,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
 using MonoGame.Extended.Entities;
 using MonoGame.Extended.Entities.Systems;
+using UnitsNet;
 using Sprite = Eggjam.Components.Sprite;
 
 namespace Eggjam.Systems;
@@ -60,16 +62,20 @@ public class RenderSystem : EntityDrawSystem {
             );
         }
 
+        var raiseAmount = Length.FromCentimeters(State.Instance.Height);
+        var renderAmount = UnitRendering.GetSmallestUnit(raiseAmount);
+
         _spriteBatch.DrawString(
             _font,
-            "Aaaaa",
+            $"You have raised the egg {renderAmount.ToString()}!",
             new Vector2(),
             Color.White,
             0f,
             new Vector2(),
             new Vector2(0.5f),
-            SpriteEffects.None, 
-            0f);
+            SpriteEffects.None,
+            0f
+        );
 
         _spriteBatch.End();
     }
