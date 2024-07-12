@@ -36,7 +36,24 @@ public class InitializationSystem : ISystem {
                 eggSize,
                 eggSize * 1.1f,
                 eggSize * 0.9f,
-                (_, _) => { State.Instance.Height++; }
+                (_, _) => { State.Instance.Height += State.Instance.CrankCount; }
+            )
+        );
+
+        var crank = world.CreateEntity();
+        crank.Attach(
+            new Transform2 {
+                Position = new Vector2(32, _graphicsDevice.Viewport.Height - 32),
+                Scale = new Vector2(64, 64)
+            }
+        );
+        crank.Attach(new Sprite(SpriteIdentifier.Crank));
+        crank.Attach(
+            new Clickable(
+                new Vector2(64, 64),
+                new Vector2(72, 72),
+                new Vector2(56, 56),
+                (_, _) => { State.Instance.CrankCount++; }
             )
         );
     }
