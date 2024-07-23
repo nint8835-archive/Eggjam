@@ -9,4 +9,6 @@ internal sealed class State {
     public int Height = 0;
 
     public static State Instance => Lazy.Value;
+
+    public int CrankCost => (int)Math.Ceiling(Math.Pow(1.5, CrankCount));
 }
